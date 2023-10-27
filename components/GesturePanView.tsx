@@ -68,7 +68,7 @@ const GesturePanView = React.forwardRef<
 
     translateX.value = withSpring(0, springConfig);
     translateY.value = withSpring(0, springConfig);
-  }, []);
+  }, [translateY, translateX]);
 
   useImperativeHandle(ref, () => ({ returnToOrigin }), [returnToOrigin]);
 
@@ -87,6 +87,7 @@ const GesturePanView = React.forwardRef<
       } else if (directions?.includes(PanDirectionsEnum.RIGHT)) {
         translateX.value = Math.max(0, context.value.x + event.translationX);
       }
+
       if (
         directions?.includes(PanDirectionsEnum.UP) &&
         directions?.includes(PanDirectionsEnum.DOWN)
@@ -98,8 +99,14 @@ const GesturePanView = React.forwardRef<
         translateY.value = Math.max(0, context.value.y + event.translationY);
       }
 
-      // clamp translation
-      if (translateY.value < 0) {
+      // clamp translation to avoid unnecessary movement
+      if (directions?.includes(PanDirectionsEnum.UP) && translateY.value < 0) {
+        translateX.value = 0;
+      }
+      if (
+        directions?.includes(PanDirectionsEnum.DOWN) &&
+        translateY.value > 0
+      ) {
         translateX.value = 0;
       }
     })
@@ -117,6 +124,7 @@ const GesturePanView = React.forwardRef<
 
   const animatedStyle = useAnimatedStyle(() => {
     'worklet';
+
     return {
       transform: [
         {
@@ -160,6 +168,5 @@ const styles = StyleSheet.create({
     paddingLeft: 12,
   },
 });
-
 
 export default GesturePanView;
