@@ -18,7 +18,7 @@ import {
   useSafeAreaInsets,
   SafeAreaView,
 } from 'react-native-safe-area-context';
-import { PanView, PanViewRefProps } from './PanView';
+import GesturePanView, { GesturePanViewRefProps } from './GesturePanView';
 import { PanDirectionsEnum } from '../type';
 import { useTimer } from '../hooks/useTimer';
 import { useToastPresets } from '../hooks/useToastPreset';
@@ -48,7 +48,7 @@ const ToastView = (props: ToastProps) => {
   const isTop = position === 'top';
   const { top, bottom } = useSafeAreaInsets();
 
-  const panViewRef = React.useRef<PanViewRefProps>(null);
+  const GesturePanViewRef = React.useRef<GesturePanViewRefProps>(null);
   const directions = React.useRef([
     props.position === 'bottom' ? PanDirectionsEnum.DOWN : PanDirectionsEnum.UP,
     PanDirectionsEnum.LEFT,
@@ -111,7 +111,7 @@ const ToastView = (props: ToastProps) => {
 
     // Reset translation if toast is closed with swipe
     if (toastTranslateY === startOutputRange) {
-      panViewRef.current?.returnToOrigin();
+      GesturePanViewRef.current?.returnToOrigin();
     }
 
     return {
@@ -162,8 +162,8 @@ const ToastView = (props: ToastProps) => {
           onLayout={onLayout}
           pointerEvents={props.visible ? 'box-none' : 'none'}
         >
-          <PanView
-            ref={panViewRef}
+          <GesturePanView
+            ref={GesturePanViewRef}
             onDismiss={onDismiss}
             clearTimer={clearTimer}
             directions={directions}
@@ -171,7 +171,7 @@ const ToastView = (props: ToastProps) => {
           >
             {renderIcon()}
             {renderMessage()}
-          </PanView>
+          </GesturePanView>
         </Animated.View>
       </SafeAreaView>
     </Animated.View>

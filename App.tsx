@@ -17,8 +17,8 @@ export default function App() {
     <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ToastView
-          position={'top'}
-          message='Toast with two lines of text. Toast with two lines of text'
+          position={'bottom'}
+          message='Toast sample code developed by samador'
           onDismiss={toggleVisible}
           autoDismiss={3000}
           preset='success'
