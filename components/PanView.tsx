@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, ViewStyle } from 'react-native';
 import React, { useImperativeHandle } from 'react';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
@@ -33,8 +33,12 @@ export type PanViewRefProps = {
   returnToOrigin(): void;
 };
 
-export const PanView = React.forwardRef<PanViewRefProps, any>(
-  ({ children, directions, clearTimer, onDismiss, style }: any, ref) => {
+type PanViewProps = {
+    directions: PanDirectionsEnum[], clearTimer():void, onDismiss?():void, style?: ViewStyle
+}
+
+export const PanView = React.forwardRef<PanViewRefProps, React.PropsWithChildren<PanViewProps>>(
+  ({ children, directions, clearTimer, onDismiss, style }, ref) => {
     const context = useSharedValue({ y: 0, x: 0 });
     const waitingForDismiss = useSharedValue(false);
     const translateX = useSharedValue(0);

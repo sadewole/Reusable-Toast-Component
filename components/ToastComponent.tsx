@@ -20,51 +20,8 @@ import {
 } from 'react-native-safe-area-context';
 import { PanView, PanViewRefProps } from './PanView';
 import { PanDirectionsEnum } from '../type';
-const checkMarkIcon = require('../assets/checkmarkFlat.png');
-const exclamationIcon = require('../assets/exclamationFill.png');
-
-const useTimer = ({ autoDismiss, onDismiss }: any) => {
-  const timer = React.useRef<any>();
-  const clearTimer = React.useCallback(() => {
-    if (timer.current) {
-      clearTimeout(timer.current);
-      timer.current = undefined;
-    }
-  }, []);
-  const setTimer = () => {
-    if (autoDismiss && onDismiss) {
-      timer.current = setTimeout(onDismiss, autoDismiss);
-    }
-  };
-  return {
-    clearTimer,
-    setTimer,
-  };
-};
-
-const TOAST_PRESETS: Record<string, any> = {
-  success: {
-    icon: checkMarkIcon,
-    // iconColor: Colors.$iconSuccessLight,
-    accessibilityMessagePrefix: 'Success',
-  },
-  failure: {
-    icon: exclamationIcon,
-    // iconColor: Colors.$iconDangerLight,
-    accessibilityMessagePrefix: 'Alert',
-  },
-};
-const useToastPresets = ({
-  preset,
-  message,
-}: Record<'preset' | 'message', string>) => {
-  const toastPreset = preset ? TOAST_PRESETS[preset] : undefined;
-  return {
-    icon: toastPreset?.icon,
-    iconColor: toastPreset?.iconColor,
-    accessibilityMessage: `${toastPreset?.accessibilityMessagePrefix} notification, ${message}`,
-  };
-};
+import { useTimer } from '../hooks/useTimer';
+import { useToastPresets } from '../hooks/useToastPreset';
 
 type ToastProps = {
   position: 'top' | 'bottom';
