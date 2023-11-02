@@ -10,5 +10,6 @@ A reusable toast component built with react-native and react-native-reanimated
 ## KINDLY STAR THE REPO AND SHARE
 
 
-https://github.com/sadewole/Reusable-Toast-Component/assets/33826445/24254d37-f5e3-4b75-9266-c65083c61037
+I'd like you to please watch the demo on YouTube short. Kindly like and share ❤️❤️
+https://www.youtube.com/shorts/FfjsOoBSlZo
 
