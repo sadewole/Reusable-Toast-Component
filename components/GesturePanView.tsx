@@ -77,26 +77,31 @@ const GesturePanView = React.forwardRef<
       context.value = { x: translateX.value, y: translateY.value };
     })
     .onUpdate((event) => {
-      if (
-        directions?.includes(PanDirectionsEnum.LEFT) &&
-        directions?.includes(PanDirectionsEnum.RIGHT)
-      ) {
-        translateX.value = context.value.x + event.translationX;
-      } else if (directions?.includes(PanDirectionsEnum.LEFT)) {
-        translateX.value = Math.min(0, context.value.x + event.translationX);
-      } else if (directions?.includes(PanDirectionsEnum.RIGHT)) {
-        translateX.value = Math.max(0, context.value.x + event.translationX);
-      }
-
-      if (
-        directions?.includes(PanDirectionsEnum.UP) &&
-        directions?.includes(PanDirectionsEnum.DOWN)
-      ) {
-        translateY.value = context.value.y + event.translationY;
-      } else if (directions?.includes(PanDirectionsEnum.UP)) {
-        translateY.value = Math.min(0, context.value.y + event.translationY);
-      } else if (directions?.includes(PanDirectionsEnum.DOWN)) {
-        translateY.value = Math.max(0, context.value.y + event.translationY);
+      const { translationX, translationY } = event;
+      if (Math.abs(translationX) > Math.abs(translationY)) {
+        const newX = context.value.x + translationX;
+        if (
+          directions?.includes(PanDirectionsEnum.LEFT) &&
+          directions?.includes(PanDirectionsEnum.RIGHT)
+        ) {
+          translateX.value = newX;
+        } else if (directions?.includes(PanDirectionsEnum.LEFT)) {
+          translateX.value = Math.min(0, newX);
+        } else if (directions?.includes(PanDirectionsEnum.RIGHT)) {
+          translateX.value = Math.max(0, newX);
+        }
+      } else {
+        const newY = context.value.y + translationY;
+        if (
+          directions?.includes(PanDirectionsEnum.UP) &&
+          directions?.includes(PanDirectionsEnum.DOWN)
+        ) {
+          translateY.value = newY;
+        } else if (directions?.includes(PanDirectionsEnum.UP)) {
+          translateY.value = Math.min(0, newY);
+        } else if (directions?.includes(PanDirectionsEnum.DOWN)) {
+          translateY.value = Math.max(0, newY);
+        }
       }
 
       // clamp translation to avoid unnecessary movement
