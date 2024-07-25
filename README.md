@@ -1,3 +1,8 @@
+*Don't forget to star🌟 the repo.*
+
+
+*The improved project is now on [NPM](https://github.com/sadewole/react-native-toastee), click to install [react-native-toastee](https://github.com/sadewole/react-native-toastee). Thanks*
+
 # Reusable-Toast-Component
 A reusable toast component built with react-native and react-native-reanimated
 
